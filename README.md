@@ -1,4 +1,3 @@
 # DataEngineering
 Data Engineering Nanodegree Program(Udacity)
-
-[<ProgressiveImage src="https://github.com/Ashish-Soni08/DataEngineering/blob/main/Data_Modeling/L1_Exercise_1_Creating_a_Table_with_Postgres.ipynb">](/static/buttons/view-in-deepnote.svg)
+[<ProgressiveImage src="https%3A%2F%2Fgithub.com%2FAshish-Soni08%2FDataEngineering">](/static/buttons/view-in-deepnote.svg)
