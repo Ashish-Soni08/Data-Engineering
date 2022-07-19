@@ -120,4 +120,3 @@ Properties of database transactions intended to guarantee validity even in the e
 4. Durability: Completed transactions are saved to database even in cases of system failure. A commonly cited example includes tracking flight seat bookings. So once the flight booking records a confirmed seat booking, the seat remains booked even if a system failure occurs. Source: Wikipedia.
 
 Non-volatile memory (NVM) or non-volatile storage is a type of computer memory that can retain stored information even after power is removed. In contrast, volatile memory needs constant power in order to retain data.
-
