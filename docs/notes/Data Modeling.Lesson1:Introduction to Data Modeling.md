@@ -2,7 +2,7 @@
 id: 4yxgrwyjr1xgf2kcv50lz88
 title: 'Lesson1:Introduction to Data Modeling'
 desc: ''
-updated: 1658263767732
+updated: 1658422408909
 created: 1658259711098
 ---
 **Q. What is a Data Model?**
@@ -109,14 +109,91 @@ Ans: Advantages of Using a Relational Database
 
 ## ACID Transactions
 
-Properties of database transactions intended to guarantee validity even in the event of errors or power failures.
+Properties of database transactions intended to guarantee validity even in the event of errors or power failures. ACID transactions ensure data integrity.
 
-1. Atomicity: The whole transaction is processed or nothing is processed. A commonly cited example of an atomic transaction is money transactions between two bank accounts. The transaction of transferring money from one account to the other is made up of two operations. First, you have to withdraw money in one account, and second you have to save the withdrawn money to the second account. An atomic transaction, i.e., when either all operations occur or nothing occurs, keeps the database in a consistent state. This ensures that if either of those two operations (withdrawing money from the 1st account or saving the money to the 2nd account) fail, the money is neither lost nor created. Source Wikipedia for a detailed description of this example.
+In context of databases, a sequence of database operations that satisfy the ACID properties, that these can be percived as a single logical operation is what is called a transaction.
 
-2. Consistency: Only transactions that abide by constraints and rules are written into the database, otherwise the database keeps the previous state. The data should be correct across all rows and tables. Check out additional information about consistency on Wikipedia.
+1. Atomicity: The whole transaction is processed or nothing is processed. A commonly cited example of an atomic transaction is money transactions between two bank accounts. The transaction of transferring money from one account to the other is made up of two operations. First, you have to withdraw money in one account, and second you have to save the withdrawn money to the second account. An atomic transaction, i.e., when either all operations occur or nothing occurs, keeps the database in a consistent state. This ensures that if either of those two operations (withdrawing money from the 1st account or saving the money to the 2nd account) fail, the money is neither lost nor created.
 
-3. Isolation: Transactions are processed independently and securely, order does not matter. A low level of isolation enables many users to access the data simultaneously, however this also increases the possibilities of concurrency effects (e.g., dirty reads or lost updates). On the other hand, a high level of isolation reduces these chances of concurrency effects, but also uses more system resources and transactions blocking each other. Source: Wikipedia
+2. Consistency: Only transactions that abide by constraints and rules are written into the database, otherwise the database keeps the previous state. The data should be correct across all rows and tables. If you've defined a column as a boolean, then you'll be unable to enter in a value for that row in tht column that equals "Hello".
+
+3. Isolation: Transactions are processed independently and securely, order does not matter. A low level of isolation enables many users to access the data simultaneously, however this also increases the possibilities of concurrency effects (e.g., dirty reads or lost updates). On the other hand, a high level of isolation reduces these chances of concurrency effects, but also uses more system resources and transactions blocking each other. When a query comes in the row or the rows it affects will lock until the transaction is complete. From there other queries are not able to interact with this data. This ensures the correctness of the data for multiple users running queries against the database.
 
 4. Durability: Completed transactions are saved to database even in cases of system failure. A commonly cited example includes tracking flight seat bookings. So once the flight booking records a confirmed seat booking, the seat remains booked even if a system failure occurs. Source: Wikipedia.
 
 Non-volatile memory (NVM) or non-volatile storage is a type of computer memory that can retain stored information even after power is removed. In contrast, volatile memory needs constant power in order to retain data.
+
+## When not to use a relational database
+
+- Have large amounts of data: Relational Databases are not distributed databases and because of this they can only scale vertically by adding more storage in the machine itself. You are limited by how much you can scale and how much data you can store on one machine. You cannot add more machines like you can in NoSQL databases.
+- Need to be able to store different data type formats: Relational databases are not designed to handle unstructured data.
+- Need high throughput -- fast reads: While ACID transactions bring benefits, they also slow down the process of reading and writing data. If you need very fast reads and writes, using a relational database may not suit your needs.
+- Need a flexible schema: Flexible schema can allow for columns to be added that do not have to be used by every row, saving disk space.
+- Need high availability: The fact that relational databases are not distributed (and even when they are, they have a coordinator/worker architecture), they have a single point of failure. When that database goes down, a fail-over to a backup system occurs and takes time.
+- Need horizontal scalability: Horizontal scalability is the ability to add more machines or nodes to a system to increase performance and space for data.
+
+High availability describes a database where there is very little downtime of the system, it is always on and functioning. so  a highly available system has very little or even no downtime.
+
+Horizontal Scalability: ability to add servers to the system. Scalability of a database means that I can add more nodes or servers to a system and the performance and the space in the system will increase. Many traditional databases especially Relational databases cannot add additional servers.
+
+## NOSQL Database
+
+has a simpler design, simpler horizontal scaling and finer control of availability. Data structures used are different than those in Relational Database, makes some operations fatser.
+
+NoSQL databases were created do some of the issues faced with Relational Databases. NoSQL databases have been around since the 1970’s but they became more popular in use since the 2000’s as data sizes has increased, and outages/downtime has decreased in acceptability.
+
+Linear Scalability and proven fault tolerance on commodity hardware or cloud infrastructure make it the perfect platform for mission-critical data.
+It uses its own query language CQL.
+
+NoSQL Database Implementations:
+
+Apache Cassandra (Partition Row store)
+MongoDB (Document store)
+DynamoDB (Key-Value store)
+Apache HBase (Wide Column Store)
+Neo4J (Graph Database)
+
+NOSQL = Not only SQL.
+
+The basics:
+
+- Keyspace: Collection of tables
+- Table: A group of partitions
+- Rows: A single item
+
+**Q. What type of companies use Apache Cassandra?**
+All kinds of companies. For example, Uber uses Apache Cassandra for their entire backend. Netflix uses Apache Cassandra to serve all their videos to customers. Good use cases for NoSQL (and more specifically Apache Cassandra) are :
+
+Transaction logging (retail, health care)
+Internet of Things (IoT)
+Time series data
+Any workload that is heavy on writes to the database (since Apache Cassandra is optimized for writes).
+
+**Q. Would Apache Cassandra be a hindrance for my analytics work? If yes, why?**
+
+Yes, if you are trying to do analysis, such as using GROUP BY statements. Since Apache Cassandra requires data modeling based on the query you want, you can't do ad-hoc queries. However you can add clustering columns into your data model and create new tables.
+
+## When to use a NoSQL Database
+
+- Need to be able to store different data type formats: NoSQL was also created to handle different data configurations: structured, semi-structured, and unstructured data. JSON, XML documents can all be handled easily with NoSQL.
+- Large amounts of data: Relational Databases are not distributed databases and because of this they can only scale vertically by adding more storage in the machine itself.
+- NoSQL databases were created to be able to be horizontally scalable. The more servers/systems you add to the database the more data that can be hosted with high availability and low latency (fast reads and writes).
+- Need horizontal scalability: Horizontal scalability is the ability to add more machines or nodes to a system to increase performance and space for data
+- Need high throughput: While ACID transactions bring benefits they also slow down the process of reading and writing data. If you need very fast reads and writes using a relational database may not suit your needs.
+- Need a flexible schema: Flexible schema can allow for columns to be added that do not have to be used by every row, saving disk space.
+- Need high availability: Relational databases have a single point of failure. When that database goes down, a failover to a backup system must happen and takes time
+- Users are distributed --low latency.. If the users of my database and the application that it serves are geographically distributed, and because of this I want to be able to serve each of my users with a minimum amount of lag time between when they execute a query and when they receive the response. Then consider a distributed database like a NOSQL database.
+
+NOSQL was built to handle the limitations that exist in relational databases. NOSQL was built for big data and to provide users with very low latency. So as you add more nodes, your performance will increase in a linear fashion.
+
+## When NOT to use a NoSQL Database?
+
+- When you have a small dataset: NoSQL databases were made for big datasets not small datasets and while it works it wasn’t created for that.
+- When you need ACID Transactions: If you need a consistent database with ACID transactions, then most NoSQL databases will not be able to serve this need. NoSQL database are eventually consistent and do not provide ACID transactions. However, there are exceptions to it. Some non-relational databases like MongoDB can support ACID transactions.
+- When you need the ability to do JOINS across tables: NoSQL does not allow the ability to do JOINS. This is not allowed as this will result in full table scans.
+- If you want to be able to do aggregations and analytics
+- If you have changing business requirements : Ad-hoc queries are possible but difficult as the data model was done to fix particular queries
+- If your queries are not available and you need the flexibility : You need your queries in advance. If those are not available or you will need to be able to have flexibility on how you query your data you might need to stick with a relational database
+
+**Note:** A full table scan is highly frowned upon as the data might be spread over hundreds or thousand of servers.
+
