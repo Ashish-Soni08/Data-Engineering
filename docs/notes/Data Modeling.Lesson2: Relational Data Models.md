@@ -2,7 +2,7 @@
 id: i1s9c5xcr4urpj3514mxliu
 title: 'Lesson2: Relational Data Models'
 desc: ''
-updated: 1658612109360
+updated: 1658612393824
 created: 1658610705797
 ---
 
@@ -30,3 +30,13 @@ Data Integrity: Data Integrity is the backbone of using a relational database.
 Structured Query Language (SQL): A standard language can be used to access the data with a predefined language.
 Simplicity : Data is systematically stored and modeled in tabular format.
 Intuitive Organization: The spreadsheet format is intuitive but intuitive to data modeling in relational databases.
+
+Online Analytical Processing (OLAP):
+
+Databases optimized for these workloads allow for complex analytical and ad hoc queries, including aggregations. These type of databases are optimized for reads.
+
+Online Transactional Processing (OLTP):
+
+Databases optimized for these workloads allow for less complex queries in large volume. The types of queries for these databases are read, insert, update, and delete.
+
+The key to remember the difference between OLAP and OLTP is analytics (A) vs transactions (T). If you want to get the price of a shoe then you are using OLTP (this has very little or no aggregations). If you want to know the total stock of shoes a particular store sold, then this requires using OLAP (since this will require aggregations)
