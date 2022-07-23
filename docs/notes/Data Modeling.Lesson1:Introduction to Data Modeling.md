@@ -196,4 +196,3 @@ NOSQL was built to handle the limitations that exist in relational databases. NO
 - If your queries are not available and you need the flexibility : You need your queries in advance. If those are not available or you will need to be able to have flexibility on how you query your data you might need to stick with a relational database
 
 **Note:** A full table scan is highly frowned upon as the data might be spread over hundreds or thousand of servers.
-
