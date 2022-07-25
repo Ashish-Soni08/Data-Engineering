@@ -2,7 +2,7 @@
 id: i1s9c5xcr4urpj3514mxliu
 title: 'Lesson2: Relational Data Models'
 desc: ''
-updated: 1658612393824
+updated: 1658683084520
 created: 1658610705797
 ---
 
@@ -40,3 +40,53 @@ Online Transactional Processing (OLTP):
 Databases optimized for these workloads allow for less complex queries in large volume. The types of queries for these databases are read, insert, update, and delete.
 
 The key to remember the difference between OLAP and OLTP is analytics (A) vs transactions (T). If you want to get the price of a shoe then you are using OLTP (this has very little or no aggregations). If you want to know the total stock of shoes a particular store sold, then this requires using OLAP (since this will require aggregations)
+
+Normalization and Denormalization
+Normalization will feel like a natural process, you will reduce the number of copies of the data and increase the likelihood that your data is correct in all locations.
+
+Normalization organizes the columns and tables in a database to ensure that their dependencies are properly enforced by database integrity constraints.
+
+We don’t want or need extra copies of our data, this is data redundancy. We want to be able to update data in one place and have that be the source of truth, that is data integrity.
+
+Denormalization will not feel as natural, as you will have duplicate copies of data, and tables will be more focused on the queries that will be run.
+
+Here is an example table we will be using later in our demo and exercises. Let’s say we have a table called music_library, looks pretty standard but this is not a normalized table.
+
+Objectives of Normal Form:
+To free the database from unwanted insertions, updates, & deletion dependencies
+To reduce the need for refactoring the database as new types of data are introduced
+To make the relational model more informative to users
+To make the database neutral to the query statistics.
+
+How to reach First Normal Form (1NF):
+
+Atomic values: each cell contains unique and single values
+Be able to add data without altering tables
+Separate different relations into different tables
+Keep relationships between tables together with foreign keys
+Second Normal Form (2NF):
+
+Have reached 1NF
+All columns in the table must rely on the Primary Key
+Third Normal Form (3NF):
+
+Must be in 2nd Normal Form
+No transitive dependencies
+Remember, transitive dependencies you are trying to maintain is that to get from A-> C, you want to avoid going through B.
+When to use 3NF:
+
+When you want to update data, we want to be able to do in just 1 place. We want to avoid updating the table in the Customers Detail table (in the example in the lecture slide).
+
+## Denormalization
+
+The process of copies of data to improve the read performance of the database at the expense of losing some write performance.
+JOINS on the database allow for outstanding flexibility but are extremely slow. If you are dealing with heavy reads on your database, you may want to think about denormalizing your tables. You get your data into normalized form, and then you proceed with denormalization. So, denormalization comes after normalization.
+
+Denormalization is part of the data modeling process to make data more easily queried.
+
+Normalization is about trying to increase data integrity by reducing the number of copies of the data. Data that needs to be added or updated will be done in as few places as possible.
+
+Denormalization is trying to increase performance by reducing the number of joins between tables (as joins can be slow). Data integrity will take a bit of a potential hit, as there will be more copies of the data (to reduce JOINS).
+
+## Fact and Dimension tables
+
