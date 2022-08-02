@@ -2,7 +2,7 @@
 id: 4y3vjkjh7ngwwkgkh5q38zq
 title: 'Lesson4: NoSQL Data Models'
 desc: ''
-updated: 1659462761979
+updated: 1659465484114
 created: 1659380683380
 ---
 
